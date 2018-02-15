@@ -1,0 +1,5 @@
+create_table("escolas", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("nome", "string", {})
+	t.Column("endereco", "string", {})
+})

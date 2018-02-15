@@ -1,0 +1,1 @@
+add_foreign_Key("clientes","enderecoid",{"enderecos":["id"]},{"on_delete":"cascade"})

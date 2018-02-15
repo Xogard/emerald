@@ -1,0 +1,1 @@
+change_column("clientes", "nome", "string", {"null":false})

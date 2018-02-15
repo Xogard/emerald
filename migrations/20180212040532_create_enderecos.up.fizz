@@ -1,0 +1,10 @@
+create_table("enderecos", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("enderecoid", "uuid", {})
+	t.Column("logradouro", "text", {"null": true})
+	t.Column("complemento", "string", {})
+	t.Column("cep", "string", {})
+	t.Column("bairro", "string", {})
+	t.Column("cidade", "string", {})
+	t.Column("estado", "string", {})
+})

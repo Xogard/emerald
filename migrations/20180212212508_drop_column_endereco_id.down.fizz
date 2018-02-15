@@ -1,0 +1,3 @@
+add_column("clientes", "enderecoid", "uuid")
+drop_column("enderecos","clienteid")
+drop_foreign_key("enderecos","clienteid",{"if_exists": true})

@@ -22,6 +22,7 @@ var app *buffalo.App
 func App() *buffalo.App {
 	if app == nil {
 		app = buffalo.New(buffalo.Options{
+			Addr:         "0.0.0.0:3000",
 			Env:          ENV,
 			SessionStore: sessions.Null{},
 			SessionName:  "_emerald_session",
@@ -43,6 +44,12 @@ func App() *buffalo.App {
 		//  c.Value("tx").(*pop.PopTransaction)
 		// Remove to disable this.
 		app.Use(middleware.PopTransaction(models.DB))
+
+		api := app.Group("/api")
+		clientes := api.Resource("/clientes", ClientesResource{})
+		clientes.Resource("/filhos", FilhosResource{})
+		clientes.Resource("/contratos", ContratosResource{})
+		api.Resource("/escolas", EscolasResource{})
 
 		app.GET("/", HomeHandler)
 

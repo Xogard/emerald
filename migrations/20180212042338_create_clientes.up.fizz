@@ -1,0 +1,14 @@
+create_table("clientes", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("nome", "text", {})
+	t.Column("dtnascimento", "date", {})
+	t.Column("cpf", "string", {"size":11})
+	t.Column("rg", "string", {})
+	t.Column("orgaoexp", "string", {})	
+	t.Column("email","string",{})
+	t.Column("fone","string",{"size":15})
+	t.Column("celular","string",{"size":15})
+	t.Column("enderecoid", "uuid", {})
+	t.ForeignKey("enderecoid",{"enderecos":["id"]},{"on_delete":"cascade"})
+})
+

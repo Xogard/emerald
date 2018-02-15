@@ -1,0 +1,9 @@
+create_table("filhos", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("nome", "string", {})
+	t.Column("dtnascimento", "date", {})
+	t.Column("escolaid", "uuid", {})
+	t.Column("clienteid", "uuid",{} )
+	t.ForeignKey("escolaid",{"escolas":["id"]},{"on_delete":"SET NULL"})
+	t.ForeignKey("clienteid",{"clientes":["id"]},{"on_delete":"cascade"})
+})

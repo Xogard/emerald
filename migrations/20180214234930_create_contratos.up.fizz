@@ -1,0 +1,10 @@
+create_table("contratos", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("clienteid", "uuid", {})
+	t.Column("exercicio", "smallint", {})
+	t.Column("dtcontrato", "date", {})
+	t.Column("duracao", "smallint", {})
+	t.Column("valor", "numeric", {})
+	t.Column("cancelado", "boolean", {})
+	t.Foreign_key("clienteid", {"clientes":["id"]},{"on_delete":"cascade"})
+})
