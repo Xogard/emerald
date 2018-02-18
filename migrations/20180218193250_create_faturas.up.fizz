@@ -1,0 +1,11 @@
+create_table("faturas", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("contratoid", "uuid", {})
+	t.Column("clienteid", "uuid", {})
+	t.Column("pagamentoid", "uuid", {"null": true})
+	t.Column("valor", "numeric", {"null": false})
+	t.Column("dtvencimento", "date", {"null": false})
+	t.Column("dtpagamento", "date", {"null": true})
+	t.ForeignKey("clienteid", {"clientes": ["id"]}, {"on_delete": "cascade"})
+	t.ForeignKey("contratoid", {"contratos": ["id"]}, {"on_delete": "cascade"})
+})

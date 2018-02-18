@@ -53,6 +53,8 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
+		//app.Resource("/faturas", FaturasResource{})
+		app.Resource("/pagamentos", PagamentosResource{})
 	}
 
 	return app

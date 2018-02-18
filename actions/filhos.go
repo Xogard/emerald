@@ -87,11 +87,11 @@ func (v FilhosResource) Create(c buffalo.Context) error {
 		return errors.WithStack(err)
 	}
 
+	// Get ClienteID from param
 	cliID, err := uuid.FromString(c.Param("cliente_id"))
 	if err != nil {
 		return errors.WithStack(errors.New("no cliente found"))
 	}
-
 	filho.ClienteID = cliID
 
 	// Get the DB connection from the context

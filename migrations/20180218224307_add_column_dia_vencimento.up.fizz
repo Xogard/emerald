@@ -1,0 +1,1 @@
+add_column("contratos", "diavencimento", "smallint", {"default":10})

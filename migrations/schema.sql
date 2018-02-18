@@ -68,7 +68,8 @@ CREATE TABLE contratos (
     valor numeric NOT NULL,
     cancelado boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    diavencimento smallint DEFAULT '10'::smallint NOT NULL
 );
 
 
@@ -111,6 +112,25 @@ CREATE TABLE escolas (
 ALTER TABLE escolas OWNER TO postgres;
 
 --
+-- Name: faturas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE faturas (
+    id uuid NOT NULL,
+    contratoid uuid NOT NULL,
+    clienteid uuid NOT NULL,
+    pagamentoid uuid,
+    valor numeric,
+    dtvencimento date,
+    dtpagamento date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE faturas OWNER TO postgres;
+
+--
 -- Name: filhos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -126,6 +146,24 @@ CREATE TABLE filhos (
 
 
 ALTER TABLE filhos OWNER TO postgres;
+
+--
+-- Name: pagamentos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE pagamentos (
+    id uuid NOT NULL,
+    contratoid uuid NOT NULL,
+    clienteid uuid NOT NULL,
+    valor numeric,
+    dtpagamento date,
+    observacao character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE pagamentos OWNER TO postgres;
 
 --
 -- Name: schema_migration; Type: TABLE; Schema: public; Owner: postgres
@@ -171,11 +209,27 @@ ALTER TABLE ONLY escolas
 
 
 --
+-- Name: faturas faturas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY faturas
+    ADD CONSTRAINT faturas_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: filhos filhos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY filhos
     ADD CONSTRAINT filhos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pagamentos pagamentos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pagamentos
+    ADD CONSTRAINT pagamentos_pkey PRIMARY KEY (id);
 
 
 --
@@ -194,6 +248,22 @@ ALTER TABLE ONLY enderecos
 
 
 --
+-- Name: faturas faturas_clienteid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY faturas
+    ADD CONSTRAINT faturas_clienteid_fkey FOREIGN KEY (clienteid) REFERENCES clientes(id) ON DELETE CASCADE;
+
+
+--
+-- Name: faturas faturas_contratoid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY faturas
+    ADD CONSTRAINT faturas_contratoid_fkey FOREIGN KEY (contratoid) REFERENCES contratos(id) ON DELETE CASCADE;
+
+
+--
 -- Name: filhos filhos_clienteid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -207,6 +277,22 @@ ALTER TABLE ONLY filhos
 
 ALTER TABLE ONLY filhos
     ADD CONSTRAINT filhos_escolaid_fkey FOREIGN KEY (escolaid) REFERENCES escolas(id) ON DELETE SET NULL;
+
+
+--
+-- Name: pagamentos pagamentos_clienteid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pagamentos
+    ADD CONSTRAINT pagamentos_clienteid_fkey FOREIGN KEY (clienteid) REFERENCES clientes(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pagamentos pagamentos_contratoid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY pagamentos
+    ADD CONSTRAINT pagamentos_contratoid_fkey FOREIGN KEY (contratoid) REFERENCES contratos(id) ON DELETE CASCADE;
 
 
 --

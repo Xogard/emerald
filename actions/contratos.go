@@ -111,7 +111,9 @@ func (v ContratosResource) Create(c buffalo.Context) error {
 		return c.Render(400, r.JSON(verrs))
 	}
 
-	return c.Render(201, r.JSON(contrato))
+	//c.Render(201, r.JSON(contrato))
+	return FaturasResource.CreateFaturas(FaturasResource{}, c, contrato)
+
 }
 
 // Edit default implementation. Returns a 404
