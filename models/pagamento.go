@@ -18,7 +18,8 @@ type Pagamento struct {
 	ContratoID  uuid.UUID       `json:"contratoid" db:"contratoid"`
 	Valor       decimal.Decimal `json:"valor" db:"valor"`
 	DtPagamento time.Time       `json:"dtpagamento" db:"dtpagamento"`
-	obs         string          `json:"obs" db:"obs"`
+	Obs         string          `json:"obs" db:"observacao"`
+	Faturas     []uuid.UUID     `json:"faturas,string" db:"-"`
 }
 
 // String is not required by pop and may be deleted

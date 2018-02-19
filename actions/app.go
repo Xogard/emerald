@@ -46,15 +46,14 @@ func App() *buffalo.App {
 		app.Use(middleware.PopTransaction(models.DB))
 
 		api := app.Group("/api")
+
 		clientes := api.Resource("/clientes", ClientesResource{})
 		clientes.Resource("/filhos", FilhosResource{})
 		clientes.Resource("/contratos", ContratosResource{})
 		api.Resource("/escolas", EscolasResource{})
+		api.Resource("/pagamentos", PagamentosResource{})
 
 		app.GET("/", HomeHandler)
-
-		//app.Resource("/faturas", FaturasResource{})
-		app.Resource("/pagamentos", PagamentosResource{})
 	}
 
 	return app
